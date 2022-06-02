@@ -5,58 +5,56 @@ using namespace std;
 
 class Student
 {
-private:
-    char name[20], sem[10], branch[10], buff[45]; 
-public:
-    void read()
-    {
-        cout<<"Enter the Name of the Student\n";
-        cin>>name;
-        cout<<"Enter the Sem of the Student\n";
-        cin>>sem;
-        cout<<"Enter the Branch of the Student\n";
-        cin>>branch;
-        
-
-    }
-
-    void pack(fstream &ofile)
-    {
-        read();
-        strcpy(buff,"");
-        strcat(buff,name);
-        strcat(buff,"|");
-        strcat(buff,sem);
-        strcat(buff,"|");
-        strcat(buff,branch);
-        strcat(buff,"|");
-        
-        while (strlen(buff) < 45)
+    private:
+        char name[20], sem[10], branch[10], buff[45]; 
+    public:
+        void read()
         {
-            strcat(buff,"!");
+            cout<<"Enter the Name of the Student\n";
+            cin>>name;
+            cout<<"Enter the Sem of the Student\n";
+            cin>>sem;
+            cout<<"Enter the Branch of the Student\n";
+            cin>>branch;
         }
 
-        strcat(buff,"\n");
-
-        ofile.write(buff,strlen(buff));
-    }
-    
-    void unpack(fstream &ifile)
-    {
-        char extra[45];
-
-        while(!ifile.eof())
+        void pack(fstream &ofile)
         {
-            ifile.getline(name,20,'|'); 
-            ifile.getline(sem,10,'|');
-            ifile.getline(branch,20,'|');  
-            ifile.getline(extra,45,'\n');
+            read();
+            strcpy(buff,"");
+            strcat(buff,name);
+            strcat(buff,"|");
+            strcat(buff,sem);
+            strcat(buff,"|");
+            strcat(buff,branch);
+            strcat(buff,"|");
 
-            cout<<name<<" | "<<sem<<" | "<<branch<<" | "<<extra<<endl;
+            while (strlen(buff) < 45)
+            {
+                strcat(buff,"!");
+            }
+
+            strcat(buff,"\n");
+
+            ofile.write(buff,strlen(buff));
+        }
+
+        void unpack(fstream &ifile)
+        {
+            char extra[45];
+
+            while(!ifile.eof())
+            {
+                ifile.getline(name,20,'|'); 
+                ifile.getline(sem,10,'|');
+                ifile.getline(branch,20,'|');  
+                ifile.getline(extra,45,'\n');
+
+                cout<<name<<" | "<<sem<<" | "<<branch<<" | "<<extra<<endl;
+
+            }
 
         }
-        
-    }
     
 };
 
@@ -65,54 +63,51 @@ int main()
     fstream ofile,ifile;
     string filename;
     Student st;
+    int exp;
 
-    cout<<"Enter the filename\n";
-    cin>>filename;
-
-    
-
-    
-
-    
-    ofile.close();
-    
-
-
-    switch (exp)
+    do
     {
-    case 1:
-        cout<<"Enter the filename\n";
-        cin>>filename;
-        cout<<"Enter the number of Student you want to enter\n";
-        int num;
-        cout<<"\n";
-
-        ofile.open(filename,ios::out | ios::app);
-
-        for (int i = 0; i < num; i++)
-        {
-            cout<<"**********************************************\n";
-            st.pack(ofile);
-            cout<<"**********************************************\n\n";
-        }
-
-        cin>>num;
-        break;
-
-    case 2:
-        cout<<"Enter the filename\n";
-        cin>>filename;
-
-        ifile.open(filename,ios::in);
-        st.unpack(ifile);
-        break;
         
-    default:
-        break;
-    }
-    
-    ifile.close();
+        cout<<"Enter your choice\n1.Pack Student Object\n2.Unpack Student Object\n3.Exit\n";
+        cin>>exp;
+            switch (exp)
+        {
+        case 1:
+            cout<<"Enter the filename\n";
+            cin>>filename;
+            cout<<"Enter the number of Student you want to enter\n";
+            int num;
+            cout<<"\n";
 
+            ofile.open(filename,ios::out | ios::app);
+
+            for (int i = 0; i < num; i++)
+            {
+                cout<<"**********************************************\n";
+                st.pack(ofile);
+                cout<<"**********************************************\n\n";
+            }
+
+            cin>>num;
+            ofile.close();
+            break;
+
+        case 2:
+            cout<<"Enter the filename\n";
+            cin>>filename;
+
+            ifile.open(filename,ios::in);
+            st.unpack(ifile);
+            break;
+            ifile.close();
+
+        default:
+                cout<<"Invalid choice";
+            break;
+        }
+    }while(exp!=3);
+    
+   
     return 0;
 }
 
