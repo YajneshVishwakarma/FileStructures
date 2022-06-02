@@ -36,6 +36,7 @@ class Student
 
             strcat(buff,"\n");
 
+
             ofile.write(buff,strlen(buff));
         }
 
@@ -77,6 +78,7 @@ int main()
             cin>>filename;
             cout<<"Enter the number of Student you want to enter\n";
             int num;
+            cin>>num;
             cout<<"\n";
 
             ofile.open(filename,ios::out | ios::app);
@@ -88,7 +90,6 @@ int main()
                 cout<<"**********************************************\n\n";
             }
 
-            cin>>num;
             ofile.close();
             break;
 
@@ -110,4 +111,3 @@ int main()
    
     return 0;
 }
-
