@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int n=0,index=0;
+int n=0,indx=0;
 
 class student
 {
@@ -27,7 +27,7 @@ class student
     }
     void write(fstream &f1,fstream &f2)
     {
-        f1<<++index<<"\t"<<usn<<"\n";
+        f1<<++indx<<"\t"<<usn<<"\n";
         f2<<name<<"\t"<<usn<<"\t"<<sem<<"\t"<<branch<<"\n";
     }
     void display(fstream &f2)
@@ -59,12 +59,12 @@ class student
 
 };
 
-void main()
+int main()
 {
 
     fstream f1,f2;
     student s[20],p;
-    int ch,k=0,i;
+    int ch,k=0,i,j;
 
     f1.open("m1.txt",ios::trunc);
     f2.open("mn1.txt",ios::trunc);
@@ -105,7 +105,7 @@ void main()
                 f1.open("m1.txt",ios::in);
                 f2.open("mn1.txt",ios::in);
 
-                int j=p.search(f1,usn);
+                j=p.search(f1,usn);
 
                 if(j!=0)
                 {
@@ -134,7 +134,7 @@ void main()
                 }
 
                 n--;
-                index--;
+                indx--;
 
                 f1.close();
                 f2.close();
@@ -142,7 +142,7 @@ void main()
                 f1.open("m1.txt",ios::trunc|ios::app);
                 f2.open("mn1.txt",ios::trunc|ios::app);
 
-                index=0;
+                indx=0;
 
                 for(i=1;i<=n;i++){
                     s[i].write(f1,f2);
@@ -152,7 +152,9 @@ void main()
                 f2.close();
             break;
 
-            default:exit(0);
+            default:break;
         }
     }
+
+    return 0;
 }
