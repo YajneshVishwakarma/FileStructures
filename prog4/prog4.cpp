@@ -88,7 +88,7 @@ int main()
 
                 for(i=0;i<n;i++)
                 {
-                    k = sprintf(key,"%d",++k);
+                    sprintf(key,"%d",++k);
                     stu.insert(ofile,key);
                 }
                 ofile.close();
